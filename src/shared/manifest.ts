@@ -16,7 +16,6 @@ export const manifest: ResolverManifest = {
             assets: {
                 "bg-wood": "bg-texture-wood.jpg",
                 "bg-grass": "bg-texture-grass.png",
-                //"bg-forest": "bg-texture-forest.jpg"
             }
         },
         {
@@ -24,6 +23,28 @@ export const manifest: ResolverManifest = {
             assets: {
                 "ouch": "public/ouch.json",
                 "poof": "public/poof.json"
+            }
+        },
+        {
+            name: "fonts",
+            assets: {
+                "WayfarersToyBox": "public/fonts/WayfarersToyBox.ttf",
+                "PixeloidSansBold": "public/fonts/PixeloidSansBold.ttf",
+                "PixeloidMono": "public/fonts/PixeloidMono.ttf"
+            }
+        },
+        {
+            name: "sound",
+            assets: {
+                "poop-effect": "public/sound/poop-effect.mp3",
+                "tomtomlove": "public/sound/tomtomlove.mp3"
+            }
+        },
+        {
+            name: "icons",
+            assets: {
+                "play-music": "public/play-music.png",
+                "mute-music": "public/mute-music.png"
             }
         }
     ]

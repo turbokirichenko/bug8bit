@@ -1,7 +1,7 @@
 {
   "name": "bug8bit",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -13,6 +13,8 @@
     "vite": "^4.1.0"
   },
   "dependencies": {
+    "@pixi/animate": "^2.0.5",
+    "@pixi/sound": "^5.0.0",
     "pixi.js": "^7.1.2"
   }
 }
