@@ -6,8 +6,6 @@ export class UserScene extends Container implements IScene {
     private _titleText?: Text;
     private _pointText?: Text;
     private static _destroyScore: number = 0;
-    private _MusicButton?: Sprite;
-    private _played: Boolean = true;
 
     public static get score(): number {
         return this._destroyScore;
@@ -73,13 +71,5 @@ export class UserScene extends Container implements IScene {
         const title: Text = new Text(titleName, style);
         title.anchor.set(0.5);
         return title;
-    }
-
-    private mute() {
-
-    }
-
-    private unmute() {
-
     }
 }

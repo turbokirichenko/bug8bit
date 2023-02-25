@@ -5,10 +5,10 @@ export const manifest: ResolverManifest = {
         {
             name: "bugs-action",
             assets: {
-                "bug-brown": "public/bug-brown-4.json",
-                "bug-red": "public/bug-red-4.json",
-                "bug-green": "public/bug-green-4.json",
-                "bug-destroyed": "public/bug-red-destoy-1.json"
+                "bug-brown": "bug-brown-4.json",
+                "bug-red": "bug-red-4.json",
+                "bug-green": "bug-green-4.json",
+                "bug-destroyed": "bug-red-destoy-1.json"
             }
         },
         {
@@ -21,30 +21,30 @@ export const manifest: ResolverManifest = {
         {
             name: "effects",
             assets: {
-                "ouch": "public/ouch.json",
-                "poof": "public/poof.json"
+                "ouch": "ouch.json",
+                "poof": "poof.json"
             }
         },
         {
             name: "fonts",
             assets: {
-                "WayfarersToyBox": "public/fonts/WayfarersToyBox.ttf",
-                "PixeloidSansBold": "public/fonts/PixeloidSansBold.ttf",
-                "PixeloidMono": "public/fonts/PixeloidMono.ttf"
+                "WayfarersToyBox": "fonts/WayfarersToyBox.ttf",
+                "PixeloidSansBold": "fonts/PixeloidSansBold.ttf",
+                "PixeloidMono": "fonts/PixeloidMono.ttf"
             }
         },
         {
             name: "sound",
             assets: {
-                "poop-effect": "public/sound/poop-effect.mp3",
-                "tomtomlove": "public/sound/tomtomlove.mp3"
+                "poop-effect": "sound/poop-effect.mp3",
+                "tomtomlove": "sound/tomtomlove.mp3"
             }
         },
         {
             name: "icons",
             assets: {
-                "play-music": "public/play-music.png",
-                "mute-music": "public/mute-music.png"
+                "play-music": "play-music.png",
+                "mute-music": "mute-music.png"
             }
         }
     ]
