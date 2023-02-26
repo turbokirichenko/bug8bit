@@ -44,7 +44,8 @@ export const manifest: ResolverManifest = {
             name: "icons",
             assets: {
                 "play-music": "play-music.png",
-                "mute-music": "mute-music.png"
+                "mute-music": "mute-music.png",
+                "undo-button": "undo.png"
             }
         }
     ]

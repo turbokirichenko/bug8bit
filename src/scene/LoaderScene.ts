@@ -1,74 +1,64 @@
-import { Container, Graphics, Assets, Sprite, Text, TextStyle } from 'pixi.js'
+import { Container, Graphics, Assets, Sprite } from 'pixi.js'
 import { Manager, IScene } from '../shared/Manager';
 import { GameScene } from './GameScene';
 import { manifest } from '../shared/manifest';
 
 export class LoaderScene extends Container implements IScene {
     private _loaderBackground: Sprite;
-    private _loaderBar: Container;
-    private _loaderBarBorder: Graphics;
-    private _loaderBarFill: Graphics;
-    private _loaderClickText?: Text;
-    private _onloaded: Boolean = false;
+    private _loaderTitle: Sprite;
+    private _loadingContainer: LoadingContainer;
+    private _startButton?: Sprite;
+    private _isLoaded: Boolean = false;
 
     constructor() {
         super();
 
+        this.interactive = true;
         this._loaderBackground = Sprite.from("bg-texture-sea.png");
         this._loaderBackground.anchor.set(0.5);
         this._loaderBackground.x = (Manager.width) / 2;
         this._loaderBackground.y = (Manager.height) / 2;
         this.addChild(this._loaderBackground);
 
+        this._loaderTitle = Sprite.from("Bug8bit.png");
+        this._loaderTitle.anchor.set(0.5);
+        this._loaderTitle.width = Math.min(Manager.width, Manager.height) * 0.2;
+        this._loaderTitle.height = Math.min(Manager.width, Manager.height) * 0.05;
+        this._loaderTitle.x = Manager.width/2;
+        this._loaderTitle.y = 100;
+        this.addChild(this._loaderTitle);
+
         const loaderBarWidth = 320;
-
-        this._loaderBarFill = new Graphics();
-        this._loaderBarFill.beginFill(0x00bfff , 0.8)
-        this._loaderBarFill.drawRect(0, 0, loaderBarWidth, 48);
-        this._loaderBarFill.endFill();
-        this._loaderBarFill.scale.x = 0;
-
-        this._loaderBarBorder = new Graphics();
-        this._loaderBarBorder.lineStyle(4, 0x0, 1);
-        this._loaderBarBorder.drawRect(0, 0, loaderBarWidth, 48);
-
-        this._loaderBar = new Container();
-        this._loaderBar.addChild(this._loaderBarFill);
-        this._loaderBar.addChild(this._loaderBarBorder);
-        this._loaderBar.position.x = (Manager.width - this._loaderBar.width) / 2;
-        this._loaderBar.position.y = (Manager.height - this._loaderBar.height) / 2;
-        this._loaderBar.interactive = true;
-        this._loaderBar.on("pointertap", () => {
-            if (this._onloaded) {
-                this.loaded();
-            }
-        })
-
-        this.addChild(this._loaderBar);
-
+        this._loadingContainer = new LoadingContainer(loaderBarWidth);
+        this.addChild(this._loadingContainer);
         this.initLoader().then(() => {
-            const style: TextStyle = new TextStyle({
-                fontSize: 32,
-                fontWeight: "bold"
-            });
-            this._loaderClickText = new Text('START GAME', style);
-            this._loaderClickText.x = Manager.width / 2;
-            this._loaderClickText.y = Manager.height / 2 - 1;
-            this._loaderClickText.anchor.set(0.5);
-            this.addChild(this._loaderClickText);
-            this._onloaded = true;
-        })
+            this._isLoaded = true;
+            this._startButton = Sprite.from("press-start.png");
+            this._startButton.anchor.set(0.5);
+            this._startButton.width = Math.min(Manager.width, Manager.height) * 0.8;
+            this._startButton.height = Math.min(Manager.width, Manager.height) * 0.4;
+            this._startButton.x = (Manager.width) / 2;
+            this._startButton.y = (Manager.height) / 2;
+            if (this.removeChild(this._loadingContainer)) {
+                this._loadingContainer.destroy();
+                this.addChild(this._startButton);
+            }
+        });
+
+        this.on("pointertap", () => {
+            if (!this._isLoaded) return;
+            this.loaded();
+        });
     }
 
     async initLoader(): Promise<void> {
         await Assets.init({manifest: manifest});
-
         const bundlesIds = manifest.bundles.map(bundle => bundle.name);
         await Assets.loadBundle(bundlesIds, this.downloadProgress.bind(this));
     }
 
     private downloadProgress(progressRatio: number): void {
-        this._loaderBarFill.scale.x = progressRatio;
+        this._loadingContainer.scaleProgress(progressRatio);
     }
 
     private loaded(): void {
@@ -81,13 +71,76 @@ export class LoaderScene extends Container implements IScene {
 
     resize(parentWidth: number, parentHeight: number): void {
         //...
-        this._loaderBackground.position.x = (parentWidth) / 2;
-        this._loaderBackground.position.y = (parentHeight) / 2;
-        this._loaderBar.position.x = (parentWidth - this._loaderBar.width) / 2;
-        this._loaderBar.position.y = (parentHeight - this._loaderBar.height) / 2;
-        if (this._loaderClickText) {
-            this._loaderClickText!.x = parentWidth / 2;
-            this._loaderClickText!.y = parentHeight / 2 - 3;
+        this._loaderTitle.width = Math.min(parentHeight, parentWidth) * 0.2;
+        this._loaderTitle.height = Math.min(parentHeight, parentWidth) * 0.05;
+        this._loaderTitle.x = Manager.width/2;
+        this._loaderTitle.y = 70;
+        //...
+        this._loaderBackground.x = parentWidth / 2;
+        this._loaderBackground.y = parentHeight / 2;
+        //...
+        if (this._startButton) {
+            this._startButton.width = Math.min(parentHeight, parentWidth) * 0.8;
+            this._startButton.height = Math.min(parentHeight, parentWidth) * 0.4;
+            this._startButton.x = parentWidth / 2;
+            this._startButton.y = parentHeight / 2;
         }
+    }
+}
+
+
+class LoadingContainer extends Container {
+    private _loaderBar: Container;
+    private _loaderBarBorder: Graphics;
+    private _loaderProgress?: Graphics;
+    private _barWidth: number;
+    private _barHeight: number;
+
+    constructor(barWidth: number) {
+        super();
+        this._barWidth = barWidth;
+        this._barHeight = 48;
+
+        this._loaderBarBorder = new Graphics();
+        this._loaderBarBorder.lineStyle(4, 0x000000, 1);
+        this._loaderBarBorder.drawRect(0, 0, this._barWidth + 6, this._barHeight);
+
+        this._loaderBar = new Container();
+        this._loaderBar.addChild(this._loaderBarBorder);
+        this._loaderBar.position.x = (Manager.width - this._loaderBar.width) / 2;
+        this._loaderBar.position.y = (Manager.height - this._loaderBar.height) / 2;
+        this.addChild(this._loaderBar);
+    }
+
+    public scaleProgress(progress: number) {
+        if (this._loaderProgress) {
+            this._loaderBar.removeChild(this._loaderProgress);
+            this._loaderProgress.destroy();
+        }
+        this._loaderProgress = this.makeRect(progress);
+        this._loaderBar.addChild(this._loaderProgress);
+    }
+
+    resize(width: number, height: number) {
+        this._loaderBar.position.x = (width - this._loaderBar.width) / 2;
+        this._loaderBar.position.y = (height - this._loaderBar.height) / 2;
+    }
+
+    private makeRect(progress: number): Graphics {
+        const percentLines = Math.floor((progress*100)/10);
+        const padding = 6;
+        const pieceWidth = this._barWidth/10 - padding;
+        const rect = new Graphics();
+        for (let i = 0; i < percentLines; ++i) {
+            rect.beginFill(0xffff00 - i*0x001100, 1);
+            rect.drawRect(
+                padding*(i+1) + pieceWidth*i, 
+                padding, 
+                pieceWidth, 
+                this._barHeight - 2*padding
+            );
+            rect.endFill();
+        }
+        return rect;
     }
 }
