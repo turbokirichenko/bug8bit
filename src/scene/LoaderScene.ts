@@ -2,6 +2,7 @@ import { Container, Graphics, Assets, Sprite } from 'pixi.js'
 import { Manager, IScene } from '../shared/Manager';
 import { GameScene } from './GameScene';
 import { manifest } from '../shared/manifest';
+import { sound } from "@pixi/sound";
 
 export class LoaderScene extends Container implements IScene {
     private _loaderBackground: Sprite;
@@ -62,6 +63,7 @@ export class LoaderScene extends Container implements IScene {
     }
 
     private loaded(): void {
+        sound.play("tomtomlove");
         Manager.changeScene(new GameScene(Manager.width, Manager.height))
     }
 
