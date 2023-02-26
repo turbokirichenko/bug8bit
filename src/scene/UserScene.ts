@@ -1,6 +1,5 @@
 import { Container, Text, TextStyle, Graphics, Sprite } from "pixi.js";
 import { Manager, IScene } from "../shared/Manager";
-import { sound } from '@pixi/sound';
 import { GameScene } from "./GameScene";
 
 export class UserScene extends Container implements IScene {
@@ -51,8 +50,6 @@ export class UserScene extends Container implements IScene {
         if (this.addChild(pointBorder)) {
             this._pointBorder = pointBorder;
         }
-
-        sound.play('tomtomlove');
     }
 
     update(framesPassed: number) {
