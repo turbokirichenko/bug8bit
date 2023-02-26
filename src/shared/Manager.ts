@@ -1,5 +1,4 @@
 import { Application, DisplayObject } from "pixi.js";
-import { sound } from "@pixi/sound";
 
 export class Manager {
     //class is almost will be static
@@ -33,7 +32,6 @@ export class Manager {
         // Add custom cursor styles
         Manager._app.renderer.events.cursorStyles.default = defaultIcon;
         window.addEventListener("resize", Manager.resize);
-        sound.play('tomtomlove');
     }
 
     public static changeScene(newScene: IScene): void {
