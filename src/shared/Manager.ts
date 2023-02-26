@@ -15,7 +15,6 @@ export class Manager {
     }
 
     public static init(background: number): void {
-
         Manager._app = new Application({
             view: document.getElementById("app__pixi") as HTMLCanvasElement,
             resizeTo: window,
@@ -25,12 +24,6 @@ export class Manager {
         });
 
         Manager._app.ticker.add(Manager.update);
-
-        // Css style for icons
-        const defaultIcon = `url(),auto`
-
-        // Add custom cursor styles
-        Manager._app.renderer.events.cursorStyles.default = defaultIcon;
         window.addEventListener("resize", Manager.resize);
     }
 
