@@ -1,4 +1,6 @@
 import { Application, DisplayObject } from "pixi.js";
+import { Stage, Layer } from "@pixi/layers";
+import { diffuseGroup, normalGroup, lightGroup, PointLight } from "@pixi/lights";
 
 export class Manager {
     //class is almost will be static
@@ -23,6 +25,12 @@ export class Manager {
             backgroundColor: background,
         });
 
+        Manager._app.stage = new Stage();
+        Manager._app.stage.addChild(
+            new Layer(diffuseGroup),
+            new Layer(normalGroup),
+            new Layer(lightGroup)
+        );
         Manager._app.ticker.add(Manager.update);
         window.addEventListener("resize", Manager.resize);
     }

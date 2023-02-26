@@ -14,6 +14,8 @@
   },
   "dependencies": {
     "@pixi/animate": "^2.0.5",
+    "@pixi/layers": "^2.0.1",
+    "@pixi/lights": "^4.0.0",
     "@pixi/sound": "^5.0.0",
     "pixi.js": "^7.1.2"
   }

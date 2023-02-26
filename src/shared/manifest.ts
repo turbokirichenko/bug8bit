@@ -12,6 +12,17 @@ export const manifest: ResolverManifest = {
             }
         },
         {
+            name: "normals",
+            assets: {
+                "bug-brown-normal": "normals-map/bug-brown-normal-4.json",
+                "bug-red-normal": "normals-map/bug-red-normal-4 .json",
+                "bug-green-normal": "normals-map/bug-green-normal-4.json",
+                "bug-destroyed-normal": "normals-map/bug-destroy-normal-1.json",
+                "bg-grass-normal": "normals-map/bg-texture-grass-normal-1.png",
+                "bg-wood-normal": "normals-map/bg-texture-wood-normal.jpg"
+            }
+        },
+        {
             name: "background-textures",
             assets: {
                 "bg-wood": "bg-texture-wood.jpg",
