@@ -5,7 +5,7 @@ import { manifest } from '../shared/manifest';
 import { sound } from "@pixi/sound";
 
 export class LoaderScene extends Container implements IScene {
-    private _loaderBackground: Sprite;
+    //private _loaderBackground: Sprite;
     private _loaderTitle: Sprite;
     private _loadingContainer: LoadingContainer;
     private _startButton?: Sprite;
@@ -15,29 +15,29 @@ export class LoaderScene extends Container implements IScene {
         super();
 
         this.interactive = true;
-        this._loaderBackground = Sprite.from("bg-texture-sea.png");
+        /*this._loaderBackground = Sprite.from("bg-texture-sea.png");
         this._loaderBackground.anchor.set(0.5);
         this._loaderBackground.x = (Manager.width) / 2;
         this._loaderBackground.y = (Manager.height) / 2;
-        this.addChild(this._loaderBackground);
+        this.addChild(this._loaderBackground);*/
 
         this._loaderTitle = Sprite.from("Bug8bit.png");
         this._loaderTitle.anchor.set(0.5);
-        this._loaderTitle.width = Math.min(Manager.width, Manager.height) * 0.2;
-        this._loaderTitle.height = Math.min(Manager.width, Manager.height) * 0.05;
+        this._loaderTitle.width = Math.max(Manager.width*0.2, 240);
+        this._loaderTitle.height = Math.max(Manager.width*0.2, 240)/4;
         this._loaderTitle.x = Manager.width/2;
         this._loaderTitle.y = 100;
         this.addChild(this._loaderTitle);
 
-        const loaderBarWidth = 320;
+        const loaderBarWidth = 280;
         this._loadingContainer = new LoadingContainer(loaderBarWidth);
         this.addChild(this._loadingContainer);
         this.initLoader().then(() => {
             this._isLoaded = true;
             this._startButton = Sprite.from("press-start.png");
             this._startButton.anchor.set(0.5);
-            this._startButton.width = Math.min(Manager.width, Manager.height) * 0.8;
-            this._startButton.height = Math.min(Manager.width, Manager.height) * 0.4;
+            this._startButton.width = Math.max(Manager.width*0.2, 240);
+            this._startButton.height = Math.max(Manager.width*0.2, 240)/4;
             this._startButton.x = (Manager.width) / 2;
             this._startButton.y = (Manager.height) / 2;
             if (this.removeChild(this._loadingContainer)) {
@@ -78,12 +78,12 @@ export class LoaderScene extends Container implements IScene {
         this._loaderTitle.x = Manager.width/2;
         this._loaderTitle.y = 70;
         //...
-        this._loaderBackground.x = parentWidth / 2;
-        this._loaderBackground.y = parentHeight / 2;
+        //this._loaderBackground.x = parentWidth / 2;
+        //this._loaderBackground.y = parentHeight / 2;
         //...
         if (this._startButton) {
-            this._startButton.width = Math.min(parentHeight, parentWidth) * 0.8;
-            this._startButton.height = Math.min(parentHeight, parentWidth) * 0.4;
+            this._startButton.width = Math.max(Manager.width*0.2, 240);
+            this._startButton.height = Math.max(Manager.width*0.2, 240)/4;
             this._startButton.x = parentWidth / 2;
             this._startButton.y = parentHeight / 2;
         }
