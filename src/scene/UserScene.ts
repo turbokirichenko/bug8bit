@@ -21,10 +21,10 @@ export class UserScene extends Container implements IScene {
         super();
 
         const reloadButton: Sprite = Sprite.from("undo-button");
-        reloadButton.width = 32;
-        reloadButton.height = 32;
-        reloadButton.x = 36;
-        reloadButton.y = 50;
+        reloadButton.width = 24;
+        reloadButton.height = 24;
+        reloadButton.x = parentWidth*0.08;
+        reloadButton.y = parentHeight*0.08;
         this._reloadButton = reloadButton;
         this._reloadButton.interactive = true;
         this._reloadButton.on("pointertap", () => {
@@ -34,7 +34,7 @@ export class UserScene extends Container implements IScene {
 
         const text: Text = this.createTitle("Bug8bit");
         text.x = parentWidth / 2;
-        text.y = 70;
+        text.y = parentHeight * 0.08 - 10;
         if (this.addChild(text)) {
             this._titleText = text;
         }
@@ -62,10 +62,13 @@ export class UserScene extends Container implements IScene {
     resize(parentWidth: number, parentHeight: number) {
         console.log('resize!!!');
         this._titleText!.x = parentWidth / 2;
-        this._titleText!.y = 100;
+        this._titleText!.y = parentHeight*0.08 - 10;
 
         this._pointText!.x = parentWidth / 2;
         this._pointText!.y = parentHeight - 100;
+
+        this._reloadButton.x = parentWidth*0.08;
+        this._reloadButton.y = parentHeight*0.08;
 
         if (this._pointBorder) {
             this.removeChild(this._pointBorder);
@@ -95,7 +98,8 @@ export class UserScene extends Container implements IScene {
         });
 
         const title: Text = new Text(titleName, style);
-        title.anchor.set(0.5);
+        title.anchor.x = 0.5;
+        title.anchor.y = 0;
         return title;
     }
 
@@ -103,8 +107,8 @@ export class UserScene extends Container implements IScene {
         const pointBorder: Graphics = new Graphics();
         /*pointBorder.lineStyle(8, 0x000000, 0.9);
         pointBorder.drawRoundedRect(15, 19, parentWidth - 30, parentHeight - 30, 0);*/
-        pointBorder.lineStyle(4, 0xffb000, 1);
-        pointBorder.drawRoundedRect(19, 15, parentWidth - 30, parentHeight - 30, 0);
+        /*pointBorder.lineStyle(4, 0xffb000, 1);
+        pointBorder.drawRoundedRect(19, 15, parentWidth - 30, parentHeight - 30, 0);*/
         return pointBorder;
     }
 }
