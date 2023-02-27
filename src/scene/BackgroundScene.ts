@@ -1,6 +1,6 @@
 import { Container, Sprite } from "pixi.js";
 import { IScene } from "../shared/Manager";
-import { diffuseGroup, normalGroup, PointLight, AmbientLight, DirectionalLight } from "@pixi/lights";
+import { diffuseGroup, normalGroup, PointLight } from "@pixi/lights";
 import { Tween, Group, Interpolation } from "tweedle.js";
 import { VectorArray2d } from "../shared/types";
 
@@ -84,18 +84,6 @@ export class BackgroundScene extends Container implements IScene {
             }
         }
 
-        const dirLight = new DirectionalLight(0xffffff, 0.5, this);
-        dirLight.width = parentWidth;
-        dirLight.height = parentHeight;
-        dirLight.x = parentWidth / 2;
-        dirLight.y = parentHeight / 2;
-        const ambLight = new AmbientLight(0xffffff, 0.05);
-        ambLight.width = parentWidth;
-        ambLight.height = parentHeight;
-        ambLight.x = parentWidth / 2;
-        ambLight.y = parentHeight / 2;
-
-        tempContainer.addChild(dirLight, ambLight);
         return tempContainer
     }
 
