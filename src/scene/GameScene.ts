@@ -11,7 +11,6 @@ export class GameScene extends Container implements IScene {
 
     constructor(parentWidth: number, parentHeight: number) {
         super();
-
         this._background = new BackgroundScene(parentWidth, parentHeight);
         this._unitScene = new UnitScene(parentWidth, parentHeight);
         this._userScene = new UserScene(parentWidth, parentHeight);

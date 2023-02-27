@@ -13,13 +13,18 @@ export class BackgroundScene extends Container implements IScene {
         this._container = this.createBackground(parentWidth, parentHeight);
         this.addChild(this._container);
 
-        const light = new PointLight(0xffffff, 1.5);
+        const light = new PointLight(0xffffff, 0);
         light.x = parentWidth/2;
         light.y = parentHeight/2;
+        light.brightness = 0;
         this._light = light;
         this.addChild(this._light);
 
         const pointsArray = this.createPoints(parentWidth, parentHeight);
+        new Tween(light).to({brightness: 1.5}, 2000)
+            .repeat(0)
+            .start();
+
         new Tween(light).to(pointsArray, 2000*Math.log(parentWidth*parentHeight))
             .repeat(Infinity)
             .interpolation(Interpolation.Geom.CatmullRom)
@@ -46,6 +51,9 @@ export class BackgroundScene extends Container implements IScene {
 
         const pointsArray = this.createPoints(parentWidth, parentHeight);
         Group.shared.removeAll();
+        new Tween(light).to({brightness: 1.5}, 2000)
+            .repeat(0)
+            .start();
         new Tween(light).to(pointsArray, 2000*Math.log(parentWidth*parentHeight))
             .repeat(Infinity)
             .interpolation(Interpolation.Geom.CatmullRom)

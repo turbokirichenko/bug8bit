@@ -18,7 +18,6 @@ export const manifest: ResolverManifest = {
                 "bug-red-normal": "normals-map/bug-red-normal-4 .json",
                 "bug-green-normal": "normals-map/bug-green-normal-4.json",
                 "bug-destroyed-normal": "normals-map/bug-destroy-normal-1.json",
-                "bg-grass-normal": "normals-map/bg-texture-grass-normal-1.png",
                 "bg-wood-normal": "normals-map/bg-texture-wood-normal.jpg"
             }
         },
@@ -26,7 +25,6 @@ export const manifest: ResolverManifest = {
             name: "background-textures",
             assets: {
                 "bg-wood": "bg-texture-wood.jpg",
-                "bg-grass": "bg-texture-grass.png",
             }
         },
         {
@@ -39,8 +37,6 @@ export const manifest: ResolverManifest = {
         {
             name: "fonts",
             assets: {
-                "WayfarersToyBox": "fonts/WayfarersToyBox.ttf",
-                "PixeloidSansBold": "fonts/PixeloidSansBold.ttf",
                 "PixeloidMono": "fonts/PixeloidMono.ttf"
             }
         },
@@ -54,8 +50,6 @@ export const manifest: ResolverManifest = {
         {
             name: "icons",
             assets: {
-                "play-music": "play-music.png",
-                "mute-music": "mute-music.png",
                 "undo-button": "undo.png"
             }
         }

@@ -6,7 +6,6 @@ export class UserScene extends Container implements IScene {
     private _titleText?: Text;
     private _pointText?: Text;
     private _pointBorder?: Graphics;
-    private _reloadButton: Sprite;
     private static _destroyScore: number = 0;
 
     public static get score(): number {
@@ -20,28 +19,16 @@ export class UserScene extends Container implements IScene {
     constructor(parentWidth: number, parentHeight: number) {
         super();
 
-        const reloadButton: Sprite = Sprite.from("undo-button");
-        reloadButton.width = 24;
-        reloadButton.height = 24;
-        reloadButton.x = parentWidth*0.08;
-        reloadButton.y = parentHeight*0.08;
-        this._reloadButton = reloadButton;
-        this._reloadButton.interactive = true;
-        this._reloadButton.on("pointertap", () => {
-            Manager.changeScene(new GameScene(parentWidth, parentHeight))
-        });
-        this.addChild(reloadButton);
-
-        const text: Text = this.createTitle("Bug8bit");
+        const text: Text = this.createTitle("Bug8bit", 32);
         text.x = parentWidth / 2;
-        text.y = parentHeight * 0.08 - 10;
+        text.y = parentHeight * 0.1 - 10;
         if (this.addChild(text)) {
             this._titleText = text;
         }
 
-        const pointText: Text = this.createTitle(`score ${UserScene._destroyScore}`, 36, false);
+        const pointText: Text = this.createTitle(`score: ${UserScene._destroyScore}`, 24);
         pointText.x = parentWidth / 2;
-        pointText.y = parentHeight - 70;
+        pointText.y = parentHeight - (parentHeight*0.08 - 10);
         if (this.addChild(pointText)) {
             this._pointText = pointText;
         }
@@ -55,7 +42,7 @@ export class UserScene extends Container implements IScene {
     update(framesPassed: number) {
         // ...
         if (this._pointText) {
-            this._pointText.text = `score ${UserScene._destroyScore}`
+            this._pointText.text = `score: ${UserScene._destroyScore}`
         }
     }
 
@@ -65,10 +52,7 @@ export class UserScene extends Container implements IScene {
         this._titleText!.y = parentHeight*0.08 - 10;
 
         this._pointText!.x = parentWidth / 2;
-        this._pointText!.y = parentHeight - 100;
-
-        this._reloadButton.x = parentWidth*0.08;
-        this._reloadButton.y = parentHeight*0.08;
+        this._pointText!.y = parentHeight - (parentHeight*0.08 - 10);
 
         if (this._pointBorder) {
             this.removeChild(this._pointBorder);
@@ -80,11 +64,11 @@ export class UserScene extends Container implements IScene {
         }
     }
 
-    private createTitle (titleName: string, fontSize: number = 34, bold: Boolean = true): Text {
+    private createTitle (titleName: string, fontSize: number = 34): Text {
         const style: TextStyle = new TextStyle({
-            fontFamily: bold ? "PixeloidSansBold" : "PixeloidMono",
+            fontFamily: "PixeloidMono",
             fontSize,
-            fill: ['#ffff00', '#ff9900'], // gradient
+            fill: ['#ffff00', '#ffff00'], // gradient
             stroke: '#000000',
             strokeThickness: 4,
             dropShadow: true,
@@ -93,13 +77,12 @@ export class UserScene extends Container implements IScene {
             dropShadowAngle:  5* Math.PI / 6,
             dropShadowDistance: 10,
             wordWrap: true,
-            wordWrapWidth: 220,
-            lineJoin: 'round',
+            wordWrapWidth: 480,
         });
 
         const title: Text = new Text(titleName, style);
-        title.anchor.x = 0.5;
-        title.anchor.y = 0;
+        title.alpha = 0.6;
+        title.anchor.set(0.5);
         return title;
     }
 

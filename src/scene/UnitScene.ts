@@ -7,12 +7,16 @@ export class UnitScene extends Container implements IScene {
 
     private _bugs: BugScene[];
     private _maxBugsLen: number = 12;
+    private _parentWidth: number;
+    private _parentHeight: number;
 
     constructor(parentWidth: number, parentHeight: number) {
         super();
         this.interactive = true;
 
         this._bugs = [];
+        this._parentWidth = parentWidth;
+        this._parentHeight = parentHeight;
 
         for(let i = 0; i < 6; ++i) {
             this.createBuggy(parentWidth, parentHeight);
@@ -65,10 +69,17 @@ export class UnitScene extends Container implements IScene {
                 }
             }
         }
+
+        // create new units if all destroyed
+        if (buggyLen === 0) {
+            this.createBuggy(this._parentWidth, this._parentHeight);
+            this.createBuggy(this._parentWidth, this._parentHeight);
+        }
     }
 
     resize(parentWidth: number, parentHeight: number) {
-        console.log(parentWidth, parentHeight);
+        this._width = parentWidth;
+        this._height = parentHeight;
         //
         let len = this._bugs.length;
         for (let i = 0; i < len; ++i) {
