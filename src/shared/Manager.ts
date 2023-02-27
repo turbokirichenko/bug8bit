@@ -1,4 +1,6 @@
 import { Application, DisplayObject } from "pixi.js";
+import { Stage, Layer } from "@pixi/layers";
+import { diffuseGroup, normalGroup, lightGroup, PointLight } from "@pixi/lights";
 
 export class Manager {
     //class is almost will be static
@@ -15,7 +17,6 @@ export class Manager {
     }
 
     public static init(background: number): void {
-
         Manager._app = new Application({
             view: document.getElementById("app__pixi") as HTMLCanvasElement,
             resizeTo: window,
@@ -24,13 +25,13 @@ export class Manager {
             backgroundColor: background,
         });
 
+        Manager._app.stage = new Stage();
+        Manager._app.stage.addChild(
+            new Layer(diffuseGroup),
+            new Layer(normalGroup),
+            new Layer(lightGroup)
+        );
         Manager._app.ticker.add(Manager.update);
-
-        // Css style for icons
-        const defaultIcon = `url(),auto`
-
-        // Add custom cursor styles
-        Manager._app.renderer.events.cursorStyles.default = defaultIcon;
         window.addEventListener("resize", Manager.resize);
     }
 

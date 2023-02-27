@@ -101,9 +101,9 @@ export class UserScene extends Container implements IScene {
 
     private createLineBorder (parentWidth: number, parentHeight: number): Graphics {
         const pointBorder: Graphics = new Graphics();
-        pointBorder.lineStyle(8, 0x000000, 0.9);
-        pointBorder.drawRoundedRect(15, 19, parentWidth - 30, parentHeight - 30, 0);
-        pointBorder.lineStyle(8, 0xffb000, 1);
+        /*pointBorder.lineStyle(8, 0x000000, 0.9);
+        pointBorder.drawRoundedRect(15, 19, parentWidth - 30, parentHeight - 30, 0);*/
+        pointBorder.lineStyle(4, 0xffb000, 1);
         pointBorder.drawRoundedRect(19, 15, parentWidth - 30, parentHeight - 30, 0);
         return pointBorder;
     }
