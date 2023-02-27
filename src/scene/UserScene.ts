@@ -1,9 +1,9 @@
 import { Container, Text, TextStyle, Graphics, Sprite } from "pixi.js";
-import { Manager, IScene } from "../shared/Manager";
-import { GameScene } from "./GameScene";
+import { IScene } from "../shared/Manager";
+import { LogoUnit } from "../units/LogoUnit";
 
 export class UserScene extends Container implements IScene {
-    private _titleText?: Text;
+    private _logo: LogoUnit;
     private _pointText?: Text;
     private _pointBorder?: Graphics;
     private static _destroyScore: number = 0;
@@ -19,24 +19,18 @@ export class UserScene extends Container implements IScene {
     constructor(parentWidth: number, parentHeight: number) {
         super();
 
-        const text: Text = this.createTitle("Bug8bit", 32);
-        text.x = parentWidth / 2;
-        text.y = parentHeight * 0.1 - 10;
-        if (this.addChild(text)) {
-            this._titleText = text;
-        }
+        this._logo = new LogoUnit(parentWidth, parentHeight);
+        this.addChild(this._logo);
 
         const pointText: Text = this.createTitle(`score: ${UserScene._destroyScore}`, 24);
         pointText.x = parentWidth / 2;
         pointText.y = parentHeight - (parentHeight*0.08 - 10);
-        if (this.addChild(pointText)) {
-            this._pointText = pointText;
-        }
+        this._pointText = pointText;
+        this.addChild(this._pointText);
 
         const pointBorder: Graphics = this.createLineBorder(parentWidth, parentHeight);
-        if (this.addChild(pointBorder)) {
-            this._pointBorder = pointBorder;
-        }
+        this._pointBorder = pointBorder;
+        this.addChild(this._pointBorder);
     }
 
     update(framesPassed: number) {
@@ -47,9 +41,7 @@ export class UserScene extends Container implements IScene {
     }
 
     resize(parentWidth: number, parentHeight: number) {
-        console.log('resize!!!');
-        this._titleText!.x = parentWidth / 2;
-        this._titleText!.y = parentHeight*0.08 - 10;
+        this._logo.resize(parentWidth, parentHeight);
 
         this._pointText!.x = parentWidth / 2;
         this._pointText!.y = parentHeight - (parentHeight*0.08 - 10);
