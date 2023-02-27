@@ -5,6 +5,7 @@ import { UserScene } from './UserScene';
 import { diffuseGroup, normalGroup, PointLight, DirectionalLight } from "@pixi/lights";
 
 export class GameScene extends Container implements IScene {
+    private _light?: PointLight;
     private _background: Container;
     private _unitScene: UnitScene;
     private _userScene: UserScene;
@@ -68,11 +69,24 @@ export class GameScene extends Container implements IScene {
         tempContainer.addChild(dirLight);
 
         // Create the point light
+        const getArea = (num: number, width: number, range: number = 0.8): number => 
+            width*(1 - range)/2 + width*num*range
+        let pointsX = [];
+        let pointsY = [];
+        for(let i = 0; i<10; ++i) {
+            const pointstampX = getArea(Math.random(), parentWidth);
+            const pointstampY = getArea(Math.random(), parentHeight);
+
+            pointsX.push(pointstampX);
+            pointsY.push(pointstampY);
+        }
+        pointsX.push(0);
+        pointsY.push(0);
+
         const light = new PointLight(0xffffff, 1);
         light.x = parentWidth / 2;
         light.y = parentHeight / 2;
         tempContainer.addChild(light);
-
         return tempContainer;
     }
 }
