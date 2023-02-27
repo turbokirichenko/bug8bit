@@ -48,7 +48,7 @@ export const manifest: ResolverManifest = {
             name: "sound",
             assets: {
                 "poop-effect": "sound/poop-effect.mp3",
-                "tomtomlove": "sound/tomtomlove.mp3"
+                "benben": "sound/ben.mp3"
             }
         },
         {

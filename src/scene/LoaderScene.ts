@@ -63,7 +63,7 @@ export class LoaderScene extends Container implements IScene {
     }
 
     private loaded(): void {
-        sound.play("tomtomlove");
+        sound.play("benben");
         Manager.changeScene(new GameScene(Manager.width, Manager.height))
     }
 
